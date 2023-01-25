@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () { 
-    // my first laravel route     
+    // my first laravel web route     
     return view('welcome');    
 });
