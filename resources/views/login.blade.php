@@ -46,7 +46,7 @@
                         </tr>
                         <tr>
                             <td>Password</td>
-                            <td><input class="form-control" type="text"  name="upassword" id="upassword" /></td>
+                            <td><input class="form-control" type="password"  name="upassword" id="upassword" /></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>

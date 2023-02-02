@@ -60,6 +60,5 @@
         @yield('pagescripts')
         
         
-
     </body>
 </html>

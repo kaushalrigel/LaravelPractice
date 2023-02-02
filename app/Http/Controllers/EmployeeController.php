@@ -173,7 +173,7 @@ class EmployeeController extends Controller
             $totalEmployees = $query->count();                 
             $employees = $query->limit($length)->offset($start)->get();       
 
-            $querylog = DB::getQueryLog();     
+            //$querylog = DB::getQueryLog();     
             //$querylog = end($querylog);
             //dd($query);
                         
