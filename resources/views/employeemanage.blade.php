@@ -1,92 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-        <title>Laravel</title>
-
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-        <!--  jQuery Ui Datepicker css -->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="{{ url('css/style.css') }}">
-
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    @extends('layouts.app')                 
                 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <!-- Datatable CSS & JS -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">        
-        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        @section('pagecontent')
 
-        <!-- jQeruy UI JS -->
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
 
-        <!-- Styles -->        
+                <p> <button class="btn btn-secondary btnAddNew" data-bs-toggle="modal" data-bs-target="#exampleModal"  >Add New</button> </p>
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="">
-       
-        <div class="container-fluid" >   
+                <table id="emplisttable" ></table>
 
-            <div id="pageheader" class="row">                        
-                <div class="col-md-12">
-                    <h2> <center> Manage Employees </center></h2>            
-                </div>                                      
-
-                <div class="col-md-12 text-start">
-                    <span><b>&nbsp; <a href="{{ url('dashboard') }}" >Dashboard</a> </b></span> 
-                </div>
-
-                <div class="col-md-12 text-end">
-                    <a href="{{ url('logout') }}" >Log Out</a>
-                </div>                 
-
-            </div>        
-
-            <div id="pagecontent" class="row mt-5 pt-5">                        
-                
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-
-                    <p> <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"  >Add New</button> </p>
-
-                    <table id="emplisttable" ></table>
-
-                </div>
-                <div class="col-md-2"></div>
+            </div>
+            <div class="col-md-2"></div>
 
 
-                <!-- Modal popup --> 
+            <!-- Modal popup --> 
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Employee</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Employee</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="frmAddEmployee" name="frmAddEmployee" method="post" enctype="multipart/form-data" >
                         <div class="modal-body">
-                            <form id="frmAddEmployee" name="frmAddEmployee" >
-
-                                <input type="hidden" name="empid" value="0" />
+                            
+                                <input type="hidden" name="empid" id="empid" value="0" />
 
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Name:</label>
-                                    <input type="text" class="form-control" name="empname" id="empname" />
+                                    <input type="text" class="form-control " name="empname" id="empname" />                                        
+
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Photo:</label>
@@ -94,38 +38,32 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Email:</label>
-                                    <input type="text" class="form-control" name="empemail" id="empemail" />
+                                    <input type="email" class="form-control" name="empemail" id="empemail" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Birth-Date:</label>
                                     <input type="text" class="form-control" name="dob" id="dob" />
-                                </div>
-                            </form>
+                                </div>                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
                         </div>
-                        </div>
+                    </form>
                     </div>
                 </div>
+            </div>
 
-            </div>    
-        
-            <div id="pagefooter" class="row">                        
-                <div class="col-md-12">
-                    <center><small> &#169;Abcdef Pvt Ltd </small></center>           
-                </div>
-            </div>        
-        </div>    
+        @endsection
+                
 
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>    
+        @section('pagescripts')    
 
         <!--  Page jQuery code -->
         <script>
             $(document).ready(function(){
 
+                //  Datatable list of employees
                 dt = $("#emplisttable").DataTable({
                             serverSide: true,
                             order: [[0, "desc"]],
@@ -171,11 +109,22 @@
                     'dateFormat':'yy-mm-dd'
                 });        
 
-                $("#frmAddEmployee").submit(function(){
+                $(".btnAddNew").click(function(){
+                    $("#empid").val('0');                             
+                    $("#empname").val('');
+                    $("#empemail").val('');
+                    $("#dob").val('');
 
-                    var empname = $("#empname").val();
-                    var empemail = $("#empemail").val();
-                    var dob = $("#dob").val();
+                });
+                
+                $("#frmAddEmployee").submit(function(e){
+                    e.preventDefault();
+                    var formData = new FormData();
+                
+                    let empid = $("input[name=empid]").val();
+                    let empname = $("input[name=empname]").val();
+                    let empemail = $("input[name=empemail]").val();
+                    let dob = $("input[name=dob]").val();
 
                     if(empname == ''){
                         alert("PLease enter name of the employee");
@@ -191,11 +140,91 @@
                         alert("PLease select birth-date of the employee");
                         return false;
                     }
-                })                        
+
+                    var photo = $('#photo').prop('files')[0];   
+                    
+                    formData.append('empid', empid);
+                    formData.append('photo', photo);
+                    formData.append('empname', empname);
+                    formData.append('empemail', empemail);
+                    formData.append('dob', dob);
+                    // console.log(formData);
+                    $.ajax({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ route('createemployee') }}",
+                        type: 'POST',
+                        contentType: 'multipart/form-data',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: (response) => {
+                            // success
+                            alert(response.message);
+                            $("#emplisttable").DataTable().ajax.reload();
+                            $('#exampleModal').modal('toggle');
+                        },
+                        error: (response) => {
+                            alert("Please enter all required fields");
+                        }
+                    });
+                });
+
+                                  
             });
+
+            $(document).on('click',".btndelete",function(){
+
+                if(!confirm("Delete this employee?")){
+                    return false;
+                }
+
+                var empid = $(this).attr('data-empid');
+                $("#empid").val(empid);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:"{{ route('removeemployee') }}",
+                    type:'POST',
+                    data:{'empid':empid},
+                    success:function(response){                            
+                        alert(response.message);            
+                        $("#emplisttable").DataTable().ajax.reload();            
+                        
+                    }
+                });
+
+            });
+
+
+            $(document).on('click',".btnedit",function(){
+                var empid = $(this).attr('data-empid');
+                $("#empid").val(empid);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:"{{ route('getemployee') }}",
+                    type:'POST',
+                    data:{'empid':empid},
+                    success:function(response){                            
+                        
+                        $("#empid").val(response.data.id);
+                        $("#empname").val(response.data.empname);
+                        $("#empemail").val(response.data.email);
+                        $("#dob").val(response.data.dob);
+
+                    }
+                });
+
+            });
+
         </script>            
         
-        
-
-    </body>
-</html>
+        @endsection
+    
